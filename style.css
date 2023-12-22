@@ -1,0 +1,82 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+   
+    color: white;
+    background-image: url(polygon-scatter-haikei.png);
+    background-repeat: np repeat;
+    background-position: center;
+    background-size: cover;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+   justify-content: center;
+   align-items: center;
+
+}
+.game_board{ 
+ display: grid;
+ grid-template-columns: repeat(3,minmax(120px,1fr));
+ font-size:;
+ 
+}
+.cell{
+    
+    border: 2px solid black;
+    padding: 60px;
+    font-size: 40px;
+    cursor: pointer;
+}
+h1{
+    margin-bottom: 20px;
+    text-decoration: underline;
+}
+.cell:nth-child(1),.cell:nth-child(2),.cell:nth-child(3){
+    border-top: none;
+}
+.cell:nth-child(3),.cell:nth-child(6),.cell:nth-child(9){
+    border-right: none;
+}
+.cell:nth-child(7),.cell:nth-child(8),.cell:nth-child(9){
+    border-bottom: none;
+}
+.cell:nth-child(1),.cell:nth-child(4),.cell:nth-child(7){
+    border-left: none;
+}
+.player{
+    margin-top: 20px;
+    padding: 10px;
+}
+.reset_btn{
+    margin-top: 20px;
+    
+}
+.reset_btn button{
+    padding: 10px 30px;
+    background-color: rgb(40, 145, 40) ;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.reset_btn button:hover{
+    background-color:rgb(7, 184, 7) ;
+}
+.cell.disable{
+    background-color: rgb(116, 82, 82);
+}
+.alertbox{
+    position: absolute;
+    top: 0;
+    color: aliceblue;
+    width: 100%;
+    padding: 20px;
+    background-color:black;
+    display: none;
+    
+}

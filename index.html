@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tic tac toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lets play tic tac toe Game</h1>
+        <div class="game_board">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div class="player">
+            <h2 class="player1">player1:</h2>
+            <h2 class="player2">player2:</h2>
+            <div class="reset_btn">
+                <button>Restart</button>
+            </div>
+        </div>
+    </div>
+    <div class="alertbox">Alert</div>
+</body>
+<script>
+    const gamecell=document.querySelectorAll ('.cell');
+    const player1=document.querySelector('.player1');
+    const player2=document.querySelector('.player2');
+    const restartbtn=document.querySelector('.reset_btn');
+    const alertbox=document.querySelector('.alertbox');
+
+
+   let currentplayer='X';
+   let nextplayer='O';
+   let playerturn=currentplayer;
+
+   player1.textContent=`player 1:${currentplayer}`;
+   player2.textContent=` player 2:${nextplayer}`;
+
+   const startGame= () =>{
+    gamecell.forEach(cell => {
+        cell.addEventListener('click',handlclick)
+    });
+   }
+   const changeplayerTurn = ()=>{
+        
+    if(playerturn===currentplayer)
+    {
+        playerturn=nextplayer;
+    }
+    else{
+        playerturn=currentplayer;
+    }
+   }
+    const checkwin= () => {
+      
+        const winningcombo =[
+              
+        [0,1,2],
+        [0,4,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [3,4,5],
+        [6,7,8],
+        [6,4,2],
+        ];
+        for(let i=0;i<winningcombo.length;i++)
+        {
+             const[pos1,pos2,pos3]=winningcombo[i];
+             if(gamecell[pos1].textContent!==""&&
+                gamecell[pos1].textContent===gamecell[pos2].textContent&&
+             gamecell[pos2].textContent===gamecell[pos3].textContent)
+             {
+                return true;
+             }
+        }
+        return false;
+        
+    
+
+    }
+
+    const checktie = () =>{
+    
+        let emptycell=0;
+        gamecell.forEach(cell=>{
+            if(cell.textContent==="")
+            {
+                emptycell++;
+            }
+
+        })
+        return emptycell===0 && !checkwin();
+
+    }
+    const handlclick= (e)=>
+    {
+        if(e.target.textContent==="")
+            {
+            e.target.textContent=playerturn;
+            if(checkwin())
+            {
+               // console.log(`${playerturn} is a winner`);
+                showalert(`${playerturn} is a winner`)
+                disablecell();
+
+            }
+            else if(checktie())
+            {
+                //console.log('its a tie');
+                showalert('its a tie');
+                disablecell();
+            }
+            else{
+                changeplayerTurn();
+            }
+        
+            }
+    }
+    const disablecell = () =>{
+        gamecell.forEach(cell=>{
+            cell.removeEventListener('click',handlclick);
+            cell.classList.add('disable');
+        })
+    }
+       const restartgame= ()=>{
+          gamecell.forEach(cell=>{
+            cell.textContent="";
+            cell.classList.remove('disable');
+          })
+        startGame();
+       }
+       const showalert= (msg)=>{
+        alertbox.style.display="block";
+        alertbox.textContent=msg;
+        setTimeout(()=>{
+            alertbox.style.display="none";
+        },3000)
+       }
+    restartbtn.addEventListener('click',restartgame);
+
+
+   startGame();
+   </script>
+</html>
